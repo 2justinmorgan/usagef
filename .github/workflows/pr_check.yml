@@ -1,0 +1,25 @@
+name: pr-check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  check-branch-name-validity:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: check the validity of the branch name
+        run: |
+          . tools/shell/common/functions.sh
+          [[ "$(is_valid_branch_name "${{ github.event.pull_request.head.ref }}")" -eq "1" ]]
+
+  check-branch-name-equals-pr-title:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: check if the branch name and pr title are the same
+        run: |
+          [[ "${{ github.event.pull_request.head.ref }}" == "${{ github.event.pull_request.title }}" ]]
