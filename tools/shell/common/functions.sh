@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function exit_err() {
+	echo >&2 "error: $(caller)"
+	exit 1
+}
+
 function is_valid_branch_name() {
 	local branch_name="$1"
 
@@ -9,11 +14,6 @@ function is_valid_branch_name() {
 	fi
 
 	echo 0
-}
-
-function exit_err_test_fail() {
-	echo >&2 "error $(caller)"
-	exit 1
 }
 
 # used to verify the contents of this file have been sourced
