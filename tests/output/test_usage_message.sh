@@ -11,14 +11,10 @@ function test_output() {
 	local exit_code
 	local exit_code_diff
 
-	echo "testing output of argv \"${argv}\""
-
 	path_input="${DIR_TESTS_OUTPUT_EXPECTED}/usage_message.txt"
 	path_output="$(get_temp_path "usage-message")" || exit_err
-	build_usagef >/dev/null || exit_err_test_fail
 
-	# shellcheck disable=SC2086 # reason: args need to separated
-	"$DIR_BUILD"/$argv >"$path_output"
+	test_usagef_output "$argv" "$path_output"
 
 	exit_code="$?"
 
@@ -43,7 +39,6 @@ function run_tests() {
 function main() {
 	check_sources
 	run_tests
-	echo "all usagef output is as expected"
 }
 
 main

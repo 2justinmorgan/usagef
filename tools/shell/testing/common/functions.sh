@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. tools/shell/common/functions.sh
 . tools/shell/common/strings.sh
 
 function exit_err_test_fail() {
@@ -21,6 +22,20 @@ function get_temp_path() {
 	num="$(get_unique_num)"
 	path_temp="${DIR_TESTS_OUTPUT_ACTUAL}/usagef_test_file_$(tr '/' '_' <<<"$path_orig")_$num"
 	echo "$path_temp"
+}
+
+function test_usagef_output() {
+	local argv="$1"
+	local output_path="$2"
+
+	echo "testing output with argv \"$argv\""
+
+	check_sourced_functions || exit 1
+	check_sourced_strings || exit_err
+
+	build_usagef >/dev/null || exit_err
+
+	"$DIR_BUILD"/$argv >"$output_path"
 }
 
 # used to verify the contents of this file have been sourced

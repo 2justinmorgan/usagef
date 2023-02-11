@@ -11,7 +11,6 @@ function test_output_with_vars() {
 	local exit_code
 	build_usagef >/dev/null || exit_err
 
-	# shellcheck disable=SC2086 # reason: args need to separated
 	actual="$("${DIR_BUILD}"/$argv)"
 
 	exit_code="$?"
@@ -29,10 +28,8 @@ function test_output_with_files() {
 	local exit_code
 
 	output_path="$(get_temp_path "version")"
-	build_usagef >/dev/null || exit_err
 
-	# shellcheck disable=SC2086 # reason: args need to separated
-	"$DIR_BUILD"/$argv >"$output_path"
+	test_usagef_output "$argv" "$output_path"
 
 	exit_code="$?"
 
@@ -59,7 +56,6 @@ function main() {
 
 	argv_to_test="usagef --version"
 
-	echo "testing output of \"${argv_to_test}\""
 	check_sources
 
 	run_tests "$argv_to_test"
