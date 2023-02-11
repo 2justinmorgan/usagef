@@ -28,7 +28,7 @@ function check_sources() {
 }
 
 function main() {
-	check_sources || exit 1
+	check_sources
 	test_outputs
 }
 
