@@ -7,6 +7,8 @@ export DIR_TESTS_OUTPUT="${DIR_TESTS}/output"
 export DIR_TESTS_OUTPUT_ACTUAL="${DIR_TESTS_OUTPUT}/actual"
 export DIR_TESTS_OUTPUT_EXPECTED="${DIR_TESTS_OUTPUT}/expected"
 
+export REGEX_USAGEF_VERSION='^[0-9]+\.[0-9]+\.[0-9]+$'
+
 # used to verify the contents of this file have been sourced
 function check_sourced_strings() {
 	:
