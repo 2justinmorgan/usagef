@@ -1,5 +1,14 @@
 set(DIR_TESTS_UNIT ${DIR_TESTS}/unit)
 
+if(IS_STATIC_CHECKING EQUAL 1)
+  set(CPPCHECK_PROJECT "--project=${DIR_BUILD}/compile_commands.json")
+  set(CPPCHECK_ERR_EXITCODE "--error-exitcode=1")
+  set(CPPCHECK_FILTER "--file-filter=${DIR_TEST}/*")
+  set(CMAKE_C_CPPCHECK
+      "cppcheck;${CPPCHECK_PROJECT};${CPPCHECK_ERR_EXITCODE};${CPPCHECK_FILTER}"
+  )
+endif()
+
 # adds an executable to test the source path (a .c file in the src/usagef dir)
 # note: each .c file in src/usagef contains one function definition (one unit)
 function(add_test_unit source_path)

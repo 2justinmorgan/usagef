@@ -24,6 +24,35 @@ function run_tests_sh() {
 	done
 }
 
+function run_tests_c() {
+	local filter_c
+	local filter_h
+	local paths_c
+	local paths_h
+	local paths
+	local path
+	local msg_prefix
+
+	filter_c="\.c$"
+	filter_h="\.h$"
+	paths_c="$(find "$DIR_SRC" | grep "$filter_c") $(find "$DIR_TESTS" | grep "$filter_c")"
+	paths_h="$(find "$DIR_SRC" | grep "$filter_h") $(find "$DIR_TESTS" | grep "$filter_h")"
+	paths="$paths_c $paths_h"
+	msg_prefix="checking .c and .h files:"
+
+	echo "$msg_prefix check format ${DIR_SRC_NAME}/ and ${DIR_TESTS_NAME}/"
+	for path in $paths; do
+		echo "$path"
+		clang-format --dry-run -Werror "$path" ||
+			exit_err_test_fail
+	done
+
+	echo "$msg_prefix lint .c and .h files"
+	# shellcheck disable=SC2086 # reason: clang-tidy needs discrete paths
+	clang-tidy $paths_h 2>/dev/null || exit_err_test_fail
+	build_usagef_testing -D IS_STATIC_CHECKING=1 || exit_err_test_fail
+}
+
 function run_tests_cmake() {
 	local cmake_files_paths
 	local path
@@ -83,6 +112,7 @@ function main() {
 	run_tests_md
 	run_tests_cmake
 	run_tests_sh
+	run_tests_c
 }
 
 main
