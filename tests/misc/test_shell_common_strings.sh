@@ -12,7 +12,7 @@ function check_string_values() {
 	[ "$DIR_TESTS" == "tests" ] || exit_err_test_fail
 	[ "$DIR_TESTS_MISC" == "${DIR_TESTS}/misc" ] || exit_err_test_fail
 	[ "$DIR_TESTS_OUTPUT" == "${DIR_TESTS}/output" ] || exit_err_test_fail
-	[ "$DIR_TESTS_OUTPUT_ACTUAL" == "${DIR_TESTS_OUTPUT}/actual" ] || exit_err_test_fail
+	[ "$DIR_TESTS_TMP" == "${DIR_TESTS}/tmp" ] || exit_err_test_fail
 	[ "$DIR_TESTS_OUTPUT_EXPECTED" == "${DIR_TESTS_OUTPUT}/expected" ] || exit_err_test_fail
 
 	[ "$REGEX_USAGEF_VERSION" == '^[0-9]+\.[0-9]+\.[0-9]+$' ] || exit_err_test_fail

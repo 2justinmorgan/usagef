@@ -20,7 +20,7 @@ function get_temp_path() {
 	check_sourced_strings || exit 1
 
 	num="$(get_unique_num)"
-	path_temp="${DIR_TESTS_OUTPUT_ACTUAL}/usagef_test_file_$(tr '/' '_' <<<"$path_orig")_$num"
+	path_temp="${DIR_TESTS_TMP}/usagef_test_file_$(tr '/' '_' <<<"$path_orig")_$num"
 	echo "$path_temp"
 }
 
