@@ -39,6 +39,24 @@ function err_argv() {
 	exit 1
 }
 
+function build_docker_image() {
+	local image_name="$1"
+
+	check_sourced_strings || exit_err
+
+	if [[ -n $(docker images --all --quiet --filter reference="${image_name}") ]]; then
+		return
+	fi
+
+	echo "building docker image '${image_name}'"
+
+	DOCKER_BUILDKIT=1 docker build \
+		. \
+		--tag "$image_name" \
+		--build-arg USAGEF_WORKDIR_PATH="$DOCKER_IMG_WORKDIR_PATH" ||
+		exit 1
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:

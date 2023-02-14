@@ -92,23 +92,6 @@ function run_tests() {
 	run_test_script "${test_script_names[$index]}"
 }
 
-function build_img() {
-	local image_name="$1"
-	local workdir_path="$2"
-
-	if [[ -n $(docker images --all --quiet --filter reference="${image_name}") ]]; then
-		return
-	fi
-
-	echo "building docker image..."
-
-	DOCKER_BUILDKIT=1 docker build \
-		--tag "$image_name" \
-		--build-arg USAGEF_WORKDIR_PATH="$workdir_path" \
-		. ||
-		exit 1
-}
-
 function test_with_docker() {
 	local is_only_build_img="$1"
 	local image_name
@@ -119,10 +102,7 @@ function test_with_docker() {
 	image_name="$DOCKER_IMG_NAME_TESTING"
 	workdir_path="$DOCKER_IMG_WORKDIR_PATH"
 
-	build_img \
-		"$image_name" \
-		"$workdir_path" ||
-		exit_err
+	build_docker_image "$image_name" || exit_err
 
 	if [[ "$is_only_build_img" -eq 1 ]]; then return; fi
 
