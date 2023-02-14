@@ -1,3 +1,5 @@
+
+/* NOLINTNEXTLINE(llvm-header-guard) */
 #ifndef TESTS_COMMON_H
 #define TESTS_COMMON_H
 

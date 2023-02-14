@@ -1,3 +1,5 @@
+
+/* NOLINTNEXTLINE(llvm-header-guard) */
 #ifndef USAGEF_RUN_H
 #define USAGEF_RUN_H
 

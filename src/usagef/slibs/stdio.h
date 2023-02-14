@@ -1,3 +1,5 @@
+
+/* NOLINTNEXTLINE(llvm-header-guard) */
 #ifndef USAGEF_SLIBS_STDIO_H
 #define USAGEF_SLIBS_STDIO_H
 
