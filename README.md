@@ -2,6 +2,17 @@
 
 `usagef` is a tool to print formatted usage and help messages for your terminal programs
 
+```
+Usage: usagef --version
+```
+
+## Examples
+
+```
+$ usagef --version
+0.1.0
+```
+
 # Developers
 
 This remaining section outlines information for developers that want to contribute to the `usagef` project

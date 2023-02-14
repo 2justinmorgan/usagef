@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. tools/shell/testing/common/functions.sh
 . tools/shell/common/functions.sh
 
 function run_test() {
@@ -15,13 +16,14 @@ function run_test() {
 }
 
 function check_sources() {
-	check_sourced_functions
+	check_sourced_functions || exit 1
+	check_sourced_functions_testing || exit_err
 }
 
 function main() {
 	local msg
 
-	check_sources || exit 1
+	check_sources
 
 	msg="is_valid_branch_name tests"
 
