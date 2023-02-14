@@ -9,7 +9,10 @@ function check_string_values() {
 
 	[ "$DIR_BUILD_NAME" == "build" ] || exit_err_test_fail
 	[ "$DIR_BUILD" == "${DIR_BUILD_NAME}" ] || exit_err_test_fail
-	[ "$DIR_TESTS" == "tests" ] || exit_err_test_fail
+	[ "$DIR_SRC_NAME" == "src" ] || exit_err_test_fail
+	[ "$DIR_SRC" == "${DIR_SRC_NAME}" ] || exit_err_test_fail
+	[ "$DIR_TESTS_NAME" == "tests" ] || exit_err_test_fail
+	[ "$DIR_TESTS" == "${DIR_TESTS_NAME}" ] || exit_err_test_fail
 	[ "$DIR_TESTS_MISC" == "${DIR_TESTS}/misc" ] || exit_err_test_fail
 	[ "$DIR_TESTS_OUTPUT" == "${DIR_TESTS}/output" ] || exit_err_test_fail
 	[ "$DIR_TESTS_TMP" == "${DIR_TESTS}/tmp" ] || exit_err_test_fail
