@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. tools/shell/common/strings.sh
+
 function exit_err() {
 	echo >&2 "error: $(caller)"
 	exit 1
@@ -14,6 +16,11 @@ function is_valid_branch_name() {
 	fi
 
 	echo 0
+}
+
+function build_usagef() {
+	check_sourced_strings || exit_err
+	rm -rf "$DIR_BUILD" && cmake -B "$DIR_BUILD" -S . && make -C "$DIR_BUILD"
 }
 
 # used to verify the contents of this file have been sourced

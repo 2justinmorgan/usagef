@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export DIR_BUILD="build"
 export DIR_TESTS="tests"
 export DIR_TESTS_MISC="${DIR_TESTS}/misc"
 
