@@ -4,13 +4,40 @@
 . tools/shell/common/strings.sh
 . tools/shell/testing/common/functions.sh
 
-function run_tests_files_md() {
+function run_tests_cmake() {
+	local cmake_files_paths
+	local path
+	local path_temp
+
+	cmake_files_paths="$(find ./* | grep -v "${DIR_BUILD_NAME}/" | grep "CMakeLists\.txt$\|\.cmake$")"
+
+	echo "checking cmake files formatting"
+	for path in $cmake_files_paths; do
+		echo "$path"
+		if cmake-format --check "$path"; then continue; fi
+		path_temp="$(get_temp_path "$path")"
+		cp "$path" "$path_temp"
+		cmake-format --in-place "$path_temp"
+		diff "$path" "$path_temp"
+		rm "$path_temp"
+		exit_err_test_fail
+	done
+
+	echo "linting cmake files"
+	for path in $cmake_files_paths; do
+		echo "$path"
+		cmake-lint "$path" || exit_err_test_fail
+	done
+}
+
+function run_tests_md() {
 	local paths
 	local path
 	local path_temp
 	echo "checking format of .md files"
 
 	paths=$(find ./* | grep -v "/${DIR_BUILD}/" | grep "\.md$")
+
 	for path in $paths; do
 		echo "$path"
 		if mdformat --check "$path"; then continue; fi
@@ -33,7 +60,8 @@ function check_sources() {
 
 function main() {
 	check_sources
-	run_tests_files_md
+	run_tests_md
+	run_tests_cmake
 }
 
 main
