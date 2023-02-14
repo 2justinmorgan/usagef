@@ -35,13 +35,15 @@ function test_usagef_output() {
 
 	build_usagef >/dev/null || exit_err
 
+	# shellcheck disable=SC2086 # reason: word splitting is intended with this argv var
 	"$DIR_BUILD"/$argv >"$output_path"
 }
 
 function build_usagef_testing() {
-	local cmake_args="$@"
+	local cmake_args="$*"
 
 	check_sourced_functions || exit 1
+	# shellcheck disable=SC2086 # reason: cmake args are not detected if the var is surrounded by strings
 	build_usagef $cmake_args -D IS_DEV_SETUP=1 || exit_err
 }
 

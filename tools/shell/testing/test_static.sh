@@ -4,6 +4,26 @@
 . tools/shell/common/strings.sh
 . tools/shell/testing/common/functions.sh
 
+function run_tests_sh() {
+	local sh_file_paths
+	local path
+
+	sh_file_paths=$(find ./* | grep -v "/${DIR_BUILD_NAME}/" | grep "\.sh$")
+	echo "checking sh files formatting"
+	for path in $sh_file_paths; do
+		echo "$path"
+		shfmt --diff "$path" ||
+			exit_err_test_fail
+	done
+
+	echo "linting sh files"
+	for path in $sh_file_paths; do
+		echo "$path"
+		shellcheck "$path" ||
+			exit_err_test_fail
+	done
+}
+
 function run_tests_cmake() {
 	local cmake_files_paths
 	local path
@@ -62,6 +82,7 @@ function main() {
 	check_sources
 	run_tests_md
 	run_tests_cmake
+	run_tests_sh
 }
 
 main

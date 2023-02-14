@@ -11,6 +11,7 @@ function test_output_with_vars() {
 	local exit_code
 	build_usagef >/dev/null || exit_err
 
+	# shellcheck disable=SC2086 # reason: word splitting is intended with this argv var
 	actual="$("${DIR_BUILD}"/$argv)"
 
 	exit_code="$?"
