@@ -28,10 +28,6 @@ function build_usagef() {
 	make -C "$DIR_BUILD" || exit_err
 }
 
-function list_unit_tests_paths() {
-	find "${DIR_BUILD}" | grep "^${DIR_BUILD_NAME}/usagef_test_unit_"
-}
-
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:

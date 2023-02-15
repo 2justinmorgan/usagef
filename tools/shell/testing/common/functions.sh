@@ -47,6 +47,10 @@ function build_usagef_testing() {
 	build_usagef $cmake_args -D IS_DEV_SETUP=1 || exit_err
 }
 
+function list_unit_tests_paths() {
+	find "${DIR_BUILD}" | grep "^${DIR_BUILD_NAME}/usagef_test_unit_"
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions_testing() {
 	:
