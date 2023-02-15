@@ -38,6 +38,13 @@ function test_usagef_output() {
 	"$DIR_BUILD"/$argv >"$output_path"
 }
 
+function build_usagef_testing() {
+	local cmake_args="$@"
+
+	check_sourced_functions || exit 1
+	build_usagef $cmake_args || exit_err
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions_testing() {
 	:
