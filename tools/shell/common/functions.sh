@@ -19,8 +19,16 @@ function is_valid_branch_name() {
 }
 
 function build_usagef() {
+	local cmake_args="$@"
+
 	check_sourced_strings || exit_err
-	rm -rf "$DIR_BUILD" && cmake -B "$DIR_BUILD" -S . && make -C "$DIR_BUILD"
+	rm -rf "$DIR_BUILD" || exit_err
+	cmake $cmake_args -B "$DIR_BUILD" -S . || exit_err
+	make -C "$DIR_BUILD" || exit_err
+}
+
+function list_unit_tests_paths() {
+	find "${DIR_BUILD}" | grep "^${DIR_BUILD_NAME}/usagef_test_unit_"
 }
 
 # used to verify the contents of this file have been sourced
