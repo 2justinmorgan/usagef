@@ -1,5 +1,9 @@
 set(DIR_USAGEF ${DIR_SRC}/usagef)
 
+if(IS_STATIC_CHECKING EQUAL 1)
+  set(CMAKE_C_CLANG_TIDY "clang-tidy")
+endif()
+
 set(USAGEF_SOURCE_FILES ${DIR_USAGEF}/argv/is_valid_argv.c ${DIR_USAGEF}/run.c
                         ${DIR_USAGEF}/const.c)
 

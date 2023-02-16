@@ -17,6 +17,8 @@ set(COMPILE_FLAGS_BASE "-pedantic -Wall -Werror")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${DIR_BUILD})
 set(EXECUTABLE_OUTPUT_PATH ${DIR_BUILD})
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 configure_file(${DIR_SRC}/${PROJECT_NAME}_config.h.in ${PROJECT_NAME}_config.h)
 
 add_subdirectory(${DIR_SRC})

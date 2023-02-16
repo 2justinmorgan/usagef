@@ -19,10 +19,11 @@ function is_valid_branch_name() {
 }
 
 function build_usagef() {
-	local cmake_args="$@"
+	local cmake_args="$*"
 
 	check_sourced_strings || exit_err
 	rm -rf "$DIR_BUILD" || exit_err
+	# shellcheck disable=SC2086 # reason: cmake args are not detected if the var is surrounded by strings
 	cmake $cmake_args -B "$DIR_BUILD" -S . || exit_err
 	make -C "$DIR_BUILD" || exit_err
 }

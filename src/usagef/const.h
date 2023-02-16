@@ -1,3 +1,5 @@
+
+/* NOLINTNEXTLINE(llvm-header-guard) */
 #ifndef USAGEF_CONST_H
 #define USAGEF_CONST_H
 
