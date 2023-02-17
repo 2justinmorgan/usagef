@@ -9,6 +9,7 @@ set(USAGEF_SOURCE_FILES ${DIR_USAGEF}/argv/is_valid_argv.c ${DIR_USAGEF}/run.c
 
 if(IS_DEV_SETUP EQUAL 1)
   add_library(${LIB_SRC} SHARED ${USAGEF_SOURCE_FILES})
+  set(CMAKE_C_FLAGS_PROFILE --coverage)
 endif()
 
 add_executable(${PROJECT_NAME} ${DIR_SRC}/usagef.c ${DIR_SRC}/usagef_config.c
