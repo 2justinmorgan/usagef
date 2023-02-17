@@ -1,6 +1,8 @@
 #ifndef TESTS_COMMON_H
 #define TESTS_COMMON_H
 
+extern const char USAGEF_VERSION[];
+
 void assert_base(int is_one, const char *file_path, const char *name_func,
                  int line_num);
 void begin_tests(char **argv);

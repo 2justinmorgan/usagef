@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+const char USAGEF_VERSION[] = "test-default";
+
 void assert_base(int is_one, const char *file_path, const char *name_func,
                  int line_num) {
   if (is_one == 1) {
