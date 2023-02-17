@@ -68,9 +68,23 @@ void test_is_valid_argv_fail() {
   free_argv(argv);
 }
 
+void test_is_valid_argv_fail_no_args() {
+  strcmp_reset(1);
+  int argc = 0;
+  char argv_1[] = "something";
+  char **argv = create_argv(argv_1);
+
+  int actual_return = is_valid_argv(argc, argv);
+
+  assert(actual_return == 0);
+  assert(strcmp_num_calls == 0);
+  free_argv(argv);
+}
+
 int main(int argc, char **argv) {
   begin_tests(argv);
   test_is_valid_argv_success();
   test_is_valid_argv_fail();
+  test_is_valid_argv_fail_no_args();
   return 0;
 }
