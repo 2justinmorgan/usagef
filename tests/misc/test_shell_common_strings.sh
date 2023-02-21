@@ -11,6 +11,9 @@ function check_string_values() {
 	[ "$DIR_BUILD" == "${DIR_BUILD_NAME}" ] || exit_err_test_fail
 	[ "$DIR_SRC_NAME" == "src" ] || exit_err_test_fail
 	[ "$DIR_SRC" == "${DIR_SRC_NAME}" ] || exit_err_test_fail
+	[ "$DIR_TOOLS_NAME" == "tools" ] || exit_err_test_fail
+	[ "$DIR_TOOLS" == "${DIR_TOOLS_NAME}" ] || exit_err_test_fail
+	[ "$DIR_TOOLS_SHELL_TESTING" == "${DIR_TOOLS}/shell/testing" ] || exit_err_test_fail
 	[ "$DIR_TESTS_NAME" == "tests" ] || exit_err_test_fail
 	[ "$DIR_TESTS" == "${DIR_TESTS_NAME}" ] || exit_err_test_fail
 	[ "$DIR_TESTS_MISC" == "${DIR_TESTS}/misc" ] || exit_err_test_fail
