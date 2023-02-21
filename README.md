@@ -17,6 +17,65 @@ $ usagef --version
 
 This remaining section outlines information for developers that want to contribute to the `usagef` project
 
+## Testing
+
+`tools/shell/testing/test.sh` is the script that runs all static, unit, coverage, valgrind, and output checks and tests for all code of this repository
+
+```
+Usage: test.sh <<[--docker] <tests_type>> | <--types|--docker-build>>
+```
+
+#### examples
+
+```
+$ tools/shell/testing/test.sh --types
+static
+unit
+coverage
+valgrind
+output
+misc
+```
+
+#### types
+
+- **static** checks include linting and format-checking of all `.c`, `.h`, `.sh`, and `CMakeLists.txt` files\
+  all `README.md` files are also format-checked
+- **unit** tests test individual functions that exist in `.c` files in `src/usagef/`
+- **coverage** checks verify that unit tests execute 100% of all lines of code in `src/usagef/`
+- **valgrind** checks verify that unit tests contain zero memory leaks from code written in `src/usagef/`
+- **output** checks test, in an end-to-end fashion, the terminal output of `usagef` commands
+- **misc** tests test miscellaneous things such as how the current usagef version number is retrieved
+
+#### tools used
+
+- [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) is linting `.c` and `.h` files in `src/`
+- [cppcheck](https://cppcheck.sourceforge.io/) is linting `.c` and `.h` files in `test/`
+- [shellcheck](https://www.shellcheck.net/) is linting all `.sh` files
+- [cmake-lint](https://cmake-format.readthedocs.io/en/latest/cmake-lint.html) is linting all `CMakeLists.txt` files
+- [clang-format](https://clang.llvm.org/docs/ClangFormat.html) is checking the formatting of all `.c` and `.h` files
+- [shfmt](https://github.com/mvdan/sh) is checking the formatting of all `.sh` files
+- [cmake-format](https://cmake-format.readthedocs.io/en/latest/cmake-format.html) is checking the formatting of all `CMakeLists.txt` files
+- [mdformat](https://pypi.org/project/mdformat/) is checking the formatting of all `README.md` files
+- [gcovr](https://gcovr.com/en/stable/) is checking unit tests' coverage of code in `src/usagef/`
+- [valgrind](https://valgrind.org/) is checking for memory leaks when unit testing code in `src/usagef/`
+
+#### Docker
+
+[Docker](https://www.docker.com/) can be used for testing on your machine if you are experiencing environment or dependency issues
+
+`--docker-build` will start the building of an image needed to run containerized tests
+
+```
+$ tools/shell/testing/test.sh --docker-build
+```
+
+`--docker` will enable containerized testing of the specified `<tests_type>`
+
+```
+$ tools/shell/testing/test.sh --docker valgrind
+```
+
 ## Git
 
 #### branch naming
