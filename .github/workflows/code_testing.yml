@@ -1,0 +1,26 @@
+name: code-testing
+
+on: [push]
+
+jobs:
+  get-tests-types:
+    runs-on: ubuntu-22.04
+    outputs:
+      tests-types: ${{ steps.tests-types-listing.outputs.TESTS_TYPES }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: tests-types-listing
+        run: echo "TESTS_TYPES=$(tools/shell/testing/test.sh --types | jq -R . | jq -s . | jq -c)" >> $GITHUB_OUTPUT
+
+  run-tests:
+    runs-on: ubuntu-22.04
+    needs:
+      - get-tests-types
+    strategy:
+      matrix:
+        tests-types: ${{ fromJSON(needs.get-tests-types.outputs.tests-types) }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: run tests
+        run: tools/shell/testing/test.sh --docker ${{ matrix.tests-types }}
