@@ -7,6 +7,10 @@
 function check_string_values() {
 	echo "checking string values"
 
+	[ "$ERR_ARGV_NEEDED" == "args are needed" ] || exit_err_test_fail
+	[ "$ERR_ARGV_EXTRA" == "excessive args (please remove)" ] || exit_err_test_fail
+	[ "$ERR_ARGV_ARG" == "invalid arg" ] || exit_err_test_fail
+
 	[ "$DOCKER_IMG_WORKDIR_PATH" == "/usagef_code" ] || exit_err_test_fail
 	[ "$DOCKER_IMG_NAME_PREFIX" == "usagef" ] || exit_err_test_fail
 	[ "$DOCKER_IMG_NAME_TESTING" == "${DOCKER_IMG_NAME_PREFIX}-testing:1" ] || exit_err_test_fail

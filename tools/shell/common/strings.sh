@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export ERR_ARGV_NEEDED="args are needed"
+export ERR_ARGV_EXTRA="excessive args (please remove)"
+export ERR_ARGV_ARG="invalid arg"
+
 export DOCKER_IMG_WORKDIR_PATH="/usagef_code"
 export DOCKER_IMG_NAME_PREFIX="usagef"
 export DOCKER_IMG_NAME_TESTING="${DOCKER_IMG_NAME_PREFIX}-testing:1"
