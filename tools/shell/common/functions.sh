@@ -28,6 +28,17 @@ function build_usagef() {
 	make -C "$DIR_BUILD" || exit_err
 }
 
+function err_argv() {
+	local usage_msg="$1"
+	local error_description="$2"
+	local argv_content="$3"
+
+	echo >&2 -e "$usage_msg"
+	[ -n "$argv_content" ] && echo >&2 -n "'$argv_content' "
+	echo >&2 -e "$error_description"
+	exit 1
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:

@@ -1,9 +1,20 @@
 #!/bin/bash
 
+export ERR_ARGV_NEEDED="args are needed"
+export ERR_ARGV_EXTRA="excessive args (please remove)"
+export ERR_ARGV_ARG="invalid arg"
+
+export DOCKER_IMG_WORKDIR_PATH="/usagef_code"
+export DOCKER_IMG_NAME_PREFIX="usagef"
+export DOCKER_IMG_NAME_TESTING="${DOCKER_IMG_NAME_PREFIX}-testing:1"
+
 export DIR_BUILD_NAME="build"
 export DIR_BUILD="${DIR_BUILD_NAME}"
 export DIR_SRC_NAME="src"
 export DIR_SRC="${DIR_SRC_NAME}"
+export DIR_TOOLS_NAME="tools"
+export DIR_TOOLS="${DIR_TOOLS_NAME}"
+export DIR_TOOLS_SHELL_TESTING="${DIR_TOOLS}/shell/testing"
 export DIR_TESTS_NAME="tests"
 export DIR_TESTS="${DIR_TESTS_NAME}"
 export DIR_TESTS_MISC="${DIR_TESTS}/misc"
