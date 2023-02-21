@@ -7,6 +7,10 @@
 function check_string_values() {
 	echo "checking string values"
 
+	[ "$DOCKER_IMG_WORKDIR_PATH" == "/usagef_code" ] || exit_err_test_fail
+	[ "$DOCKER_IMG_NAME_PREFIX" == "usagef" ] || exit_err_test_fail
+	[ "$DOCKER_IMG_NAME_TESTING" == "${DOCKER_IMG_NAME_PREFIX}-testing:1" ] || exit_err_test_fail
+
 	[ "$DIR_BUILD_NAME" == "build" ] || exit_err_test_fail
 	[ "$DIR_BUILD" == "${DIR_BUILD_NAME}" ] || exit_err_test_fail
 	[ "$DIR_SRC_NAME" == "src" ] || exit_err_test_fail
