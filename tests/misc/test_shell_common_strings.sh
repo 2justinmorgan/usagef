@@ -5,11 +5,11 @@
 . tools/shell/testing/common/functions.sh
 
 function assert_str_val() {
-  local str_var_name="$1"
-  local expected_val="$2"
+	local str_var_name="$1"
+	local expected_val="$2"
 
-  echo "checking '$str_var_name'"
-  [ "${!str_var_name}" == "$expected_val" ]
+	echo "checking '$str_var_name'"
+	[ "${!str_var_name}" == "$expected_val" ]
 }
 
 function check_string_values() {
