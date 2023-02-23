@@ -94,22 +94,17 @@ function run_tests() {
 
 function test_with_docker() {
 	local is_only_build_img="$1"
-	local image_name
-	local workdir_path
 	local container_id
 	local container_exit_code
 
-	image_name="$DOCKER_IMG_NAME_TESTING"
-	workdir_path="$DOCKER_IMG_WORKDIR_PATH"
-
-	build_docker_image "$image_name" || exit_err
+	build_docker_image "$DOCKER_IMG_NAME_TESTING" || exit_err
 
 	if [[ "$is_only_build_img" -eq 1 ]]; then return; fi
 
 	echo "testing with docker..."
 
-	container_id=$(docker run -itd "${image_name}")
-	docker cp . "${container_id}":"$workdir_path"
+	container_id=$(docker run -itd "$DOCKER_IMG_NAME_TESTING")
+	docker cp . "${container_id}":"$DOCKER_IMG_WORKDIR_PATH"
 	docker exec "${container_id}" \
 		bash -c "\"${DIR_TOOLS_SHELL_TESTING}\"/test.sh $tests_type || exit 1"
 
