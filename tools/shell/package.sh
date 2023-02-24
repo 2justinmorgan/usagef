@@ -81,7 +81,7 @@ function package_precompiled() {
 	fi
 	rm -rf "$dir_precompiled"
 	# shellcheck disable=SC2012 # reason: ls is better for sorting by date modified
-	echo "packaged '$(ls -tr1 | tail -1)'"
+	echo "packaged '$(ls -tr1 | grep "^usagef" | tail -1)'"
 }
 
 function package() {

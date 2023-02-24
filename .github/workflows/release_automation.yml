@@ -32,4 +32,4 @@ jobs:
       - name: upload to GitHub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh auth status
+        run: gh release upload "${GITHUB_REF#refs/*/}" "$(ls -tr1 | grep "^usagef" | tail -1)"
