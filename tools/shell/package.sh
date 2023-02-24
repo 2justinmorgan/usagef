@@ -80,7 +80,7 @@ function package_precompiled() {
 		tar cfJ "${dir_precompiled}.tar.xz" "$dir_precompiled" || exit_err
 	fi
 	rm -rf "$dir_precompiled"
-	# shellcheck disable=SC2012 # reason: ls is better for sorting by date modified
+	# shellcheck disable=SC2010 # reason: ls is better for sorting by date modified
 	echo "packaged '$(ls -tr1 | grep "^usagef" | tail -1)'"
 }
 
