@@ -29,7 +29,10 @@ function check_args() {
 	done
 
 	[ "${argv[1]}" != "--targets" ] &&
-		err_argv "$usage_msg" "$ERR_ARGV_ARG" "${argv[1]}"
+		err_argv \
+			"$usage_msg" \
+			"target is not one of [${valid_targets[*]}]" \
+			"${argv[1]}"
 }
 
 function delete_container() {
