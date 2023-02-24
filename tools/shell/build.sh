@@ -199,11 +199,11 @@ function main() {
 
 	valid_targets=(
 		"local"
-		aarch64-linux
-		arm-linux
-		x86_64-linux
-		x86_64-darwin
-		x86_64-windows
+		linux-arm64
+		linux-arm32
+		linux-x64
+		darwin-x64
+		windows-x64
 	)
 
 	check_args \
