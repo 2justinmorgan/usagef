@@ -127,14 +127,14 @@ function get_executable() {
 
 	strip_executable \
 		"$container_id" \
-		"$(docker exec "$container_id" find "$DIR_BUILD" -maxdepth 1 -perm -755 -type f)" ||
+		"$(docker exec "$container_id" bash -c ". tools/shell/common/functions.sh && get_built_executable_path")" ||
 		exit_err_container "$container_id"
 
 	docker cp \
 		"${container_id}:${DOCKER_IMG_WORKDIR_PATH}/${DIR_BUILD}" \
 		"$DIR_BUILD" ||
 		exit_err_container "$container_id"
-	echo "built executable at '$(pwd)/$(find "$DIR_BUILD" -maxdepth 1 -perm -755 -type f)'"
+	echo "built executable at '$(pwd)/$(get_built_executable_path)'"
 	delete_container "$container_id"
 }
 

@@ -70,6 +70,11 @@ function get_index_of() {
 	echo "-1"
 }
 
+function get_built_executable_path() {
+	check_sourced_strings || exit_err
+	find "$DIR_BUILD" -maxdepth 1 -perm -755 -type f || exit_err
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:
