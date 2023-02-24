@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: targets-listing
-        run: echo "TARGET_NAMES=$(tools/shell/build.sh --targets | jq -R . | jq -s . | jq -c)" >> $GITHUB_OUTPUT
+        run: echo "TARGET_NAMES=$(tools/shell/build.sh --targets | grep -v "local" | jq -R . | jq -s . | jq -c)" >> $GITHUB_OUTPUT
 
   publish-packages:
     runs-on: ubuntu-22.04
