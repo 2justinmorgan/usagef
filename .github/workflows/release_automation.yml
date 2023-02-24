@@ -1,6 +1,9 @@
 name: release-automation
 
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   get-target-names:
@@ -24,6 +27,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: package precompiled ${{ matrix.targets }}
         run: tools/shell/package.sh precompiled ${{ matrix.targets }}
+      - name: output tag name
+        run: echo "'${GITHUB_REF#refs/*/}'"
       - name: upload to GitHub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
