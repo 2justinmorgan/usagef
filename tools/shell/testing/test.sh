@@ -86,7 +86,7 @@ function test_with_docker() {
 	local container_id
 	local container_exit_code
 
-	build_docker_image "$DOCKER_IMG_NAME_TESTING" || exit_err
+	build_docker_image "$DOCKER_IMG_NAME_TESTING" "$DOCKERFILE_TARGET_TESTING" || exit_err
 
 	if [[ "$is_only_build_img" -eq 1 ]]; then return; fi
 

@@ -19,9 +19,12 @@ function check_string_values() {
 	assert_str_val "ERR_ARGV_EXTRA" "excessive args (please remove)" || exit_err_test_fail
 	assert_str_val "ERR_ARGV_ARG" "invalid arg" || exit_err_test_fail
 
+	assert_str_val "DOCKERFILE_TARGET_TESTING" "testing" || exit_err_test_fail
+	assert_str_val "DOCKERFILE_TARGET_PACKAGING" "packaging" || exit_err_test_fail
 	assert_str_val "DOCKER_IMG_WORKDIR_PATH" "/usagef_code" || exit_err_test_fail
 	assert_str_val "DOCKER_IMG_NAME_PREFIX" "usagef" || exit_err_test_fail
-	assert_str_val "DOCKER_IMG_NAME_TESTING" "${DOCKER_IMG_NAME_PREFIX}-testing:1" || exit_err_test_fail
+	assert_str_val "DOCKER_IMG_NAME_TESTING" "${DOCKER_IMG_NAME_PREFIX}-${DOCKERFILE_TARGET_TESTING}:1" || exit_err_test_fail
+	assert_str_val "DOCKER_IMG_NAME_PACKAGING" "${DOCKER_IMG_NAME_PREFIX}-${DOCKERFILE_TARGET_PACKAGING}:1" || exit_err_test_fail
 
 	assert_str_val "DIR_BUILD_NAME" "build" || exit_err_test_fail
 	assert_str_val "DIR_BUILD" "${DIR_BUILD_NAME}" || exit_err_test_fail
@@ -29,6 +32,7 @@ function check_string_values() {
 	assert_str_val "DIR_SRC" "${DIR_SRC_NAME}" || exit_err_test_fail
 	assert_str_val "DIR_TOOLS_NAME" "tools" || exit_err_test_fail
 	assert_str_val "DIR_TOOLS" "${DIR_TOOLS_NAME}" || exit_err_test_fail
+	assert_str_val "DIR_TOOLS_TOOLCHAINS" "${DIR_TOOLS}/toolchains" || exit_err_test_fail
 	assert_str_val "DIR_TOOLS_SHELL_TESTING" "${DIR_TOOLS}/shell/testing" || exit_err_test_fail
 	assert_str_val "DIR_TESTS_NAME" "tests" || exit_err_test_fail
 	assert_str_val "DIR_TESTS" "${DIR_TESTS_NAME}" || exit_err_test_fail

@@ -41,6 +41,7 @@ function err_argv() {
 
 function build_docker_image() {
 	local image_name="$1"
+	local dockerfile_target="$2"
 
 	check_sourced_strings || exit_err
 
@@ -53,6 +54,7 @@ function build_docker_image() {
 	DOCKER_BUILDKIT=1 docker build \
 		. \
 		--tag "$image_name" \
+		--target "$dockerfile_target" \
 		--build-arg USAGEF_WORKDIR_PATH="$DOCKER_IMG_WORKDIR_PATH" ||
 		exit 1
 }
