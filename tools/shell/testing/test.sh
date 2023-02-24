@@ -60,17 +60,6 @@ function run_test_script() {
 	"${DIR_TOOLS_SHELL_TESTING}"/"$script_name" || exit_err
 }
 
-function get_index_of() {
-	local element="$1"
-	# shellcheck disable=SC2206 # reason: read -a does not create a local var
-	local array=($2)
-	local i
-	for ((i = 0; i < "${#array[@]}"; i++)); do
-		[ "${array[$i]}" == "$element" ] && echo "$i" && return
-	done
-	echo "-1"
-}
-
 function run_tests() {
 	local tests_type="$1"
 	# shellcheck disable=SC2206 # reason: read -a does not create a local var

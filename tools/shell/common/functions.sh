@@ -57,6 +57,17 @@ function build_docker_image() {
 		exit 1
 }
 
+function get_index_of() {
+	local element="$1"
+	# shellcheck disable=SC2206 # reason: read -a does not create a local var
+	local array=($2)
+	local i
+	for ((i = 0; i < "${#array[@]}"; i++)); do
+		[ "${array[$i]}" == "$element" ] && echo "$i" && return
+	done
+	echo "-1"
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:
