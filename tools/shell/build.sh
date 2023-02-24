@@ -149,10 +149,9 @@ function output_targets() {
 }
 
 function apply_args() {
-	local argc="$1"
-	local argv_1="$2"
+	local argv_1="$1"
 	# shellcheck disable=SC2206 # reason: read -a does not create a local var
-	local valid_targets=($3)
+	local valid_targets=($2)
 	local toolchain_file_names
 	local index
 
@@ -213,7 +212,6 @@ function main() {
 		"${valid_targets[*]}"
 
 	apply_args \
-		"$argc" \
 		"${argv[1]}" \
 		"${valid_targets[*]}"
 }
