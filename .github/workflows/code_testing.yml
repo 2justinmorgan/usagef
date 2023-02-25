@@ -1,6 +1,9 @@
 name: code-testing
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   get-tests-types:
