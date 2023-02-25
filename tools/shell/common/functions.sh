@@ -39,6 +39,42 @@ function err_argv() {
 	exit 1
 }
 
+function build_docker_image() {
+	local image_name="$1"
+	local dockerfile_target="$2"
+
+	check_sourced_strings || exit_err
+
+	if [[ -n $(docker images --all --quiet --filter reference="${image_name}") ]]; then
+		return
+	fi
+
+	echo "building docker image '${image_name}'"
+
+	DOCKER_BUILDKIT=1 docker build \
+		. \
+		--tag "$image_name" \
+		--target "$dockerfile_target" \
+		--build-arg USAGEF_WORKDIR_PATH="$DOCKER_IMG_WORKDIR_PATH" ||
+		exit 1
+}
+
+function get_index_of() {
+	local element="$1"
+	# shellcheck disable=SC2206 # reason: read -a does not create a local var
+	local array=($2)
+	local i
+	for ((i = 0; i < "${#array[@]}"; i++)); do
+		[ "${array[$i]}" == "$element" ] && echo "$i" && return
+	done
+	echo "-1"
+}
+
+function get_built_executable_path() {
+	check_sourced_strings || exit_err
+	find "$DIR_BUILD" -maxdepth 1 -perm -755 -type f || exit_err
+}
+
 # used to verify the contents of this file have been sourced
 function check_sourced_functions() {
 	:

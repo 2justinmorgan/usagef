@@ -1,0 +1,45 @@
+name: release-automation
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  prepare-for-releasing:
+    runs-on: ubuntu-22.04
+    outputs:
+      target-names: ${{ steps.targets-listing.outputs.TARGET_NAMES }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: check tag name validity
+        run: |
+          . tools/shell/common/strings.sh
+          [[ "${GITHUB_REF#refs/*/v}" =~ $REGEX_USAGEF_VERSION ]]
+      - name: run tests
+        run: |
+          for test_type in $(tools/shell/testing/test.sh --types); do
+            tools/shell/testing/test.sh --docker "$test_type" || exit 1
+          done
+      - name: initialize a release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create ${GITHUB_REF#refs/*/} --notes ""
+      - id: targets-listing
+        run: echo "TARGET_NAMES=$(tools/shell/build.sh --targets | grep -v "local" | jq -R . | jq -s . | jq -c)" >> $GITHUB_OUTPUT
+
+  upload-packages:
+    runs-on: ubuntu-22.04
+    needs:
+      - prepare-for-releasing
+    strategy:
+      matrix:
+        targets: ${{ fromJSON(needs.prepare-for-releasing.outputs.target-names) }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: package precompiled ${{ matrix.targets }}
+        run: tools/shell/package.sh precompiled ${{ matrix.targets }}
+      - name: upload to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${GITHUB_REF#refs/*/}" "$(ls -tr1 | grep "^usagef" | tail -1)"

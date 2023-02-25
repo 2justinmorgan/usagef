@@ -60,17 +60,6 @@ function run_test_script() {
 	"${DIR_TOOLS_SHELL_TESTING}"/"$script_name" || exit_err
 }
 
-function get_index_of() {
-	local element="$1"
-	# shellcheck disable=SC2206 # reason: read -a does not create a local var
-	local array=($2)
-	local i
-	for ((i = 0; i < "${#array[@]}"; i++)); do
-		[ "${array[$i]}" == "$element" ] && echo "$i" && return
-	done
-	echo "-1"
-}
-
 function run_tests() {
 	local tests_type="$1"
 	# shellcheck disable=SC2206 # reason: read -a does not create a local var
@@ -92,44 +81,19 @@ function run_tests() {
 	run_test_script "${test_script_names[$index]}"
 }
 
-function build_img() {
-	local image_name="$1"
-	local workdir_path="$2"
-
-	if [[ -n $(docker images --all --quiet --filter reference="${image_name}") ]]; then
-		return
-	fi
-
-	echo "building docker image..."
-
-	DOCKER_BUILDKIT=1 docker build \
-		--tag "$image_name" \
-		--build-arg USAGEF_WORKDIR_PATH="$workdir_path" \
-		. ||
-		exit 1
-}
-
 function test_with_docker() {
 	local is_only_build_img="$1"
-	local image_name
-	local workdir_path
 	local container_id
 	local container_exit_code
 
-	image_name="$DOCKER_IMG_NAME_TESTING"
-	workdir_path="$DOCKER_IMG_WORKDIR_PATH"
-
-	build_img \
-		"$image_name" \
-		"$workdir_path" ||
-		exit_err
+	build_docker_image "$DOCKER_IMG_NAME_TESTING" "$DOCKERFILE_TARGET_TESTING" || exit_err
 
 	if [[ "$is_only_build_img" -eq 1 ]]; then return; fi
 
 	echo "testing with docker..."
 
-	container_id=$(docker run -itd "${image_name}")
-	docker cp . "${container_id}":"$workdir_path"
+	container_id=$(docker run -itd "$DOCKER_IMG_NAME_TESTING")
+	docker cp . "${container_id}":"$DOCKER_IMG_WORKDIR_PATH"
 	docker exec "${container_id}" \
 		bash -c "\"${DIR_TOOLS_SHELL_TESTING}\"/test.sh $tests_type || exit 1"
 
