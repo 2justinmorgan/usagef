@@ -13,6 +13,34 @@ $ usagef --version
 0.1.0
 ```
 
+## Build
+
+`tools/shell/build.sh` is the script that cross-compiles `usagef` executables for multiple target architectures and operating systems such as:
+
+- aarch64-linux-gnu
+- arm-linux-gnueabi
+- x86_64-apple-darwin18
+- x86_64-linux-gnu
+- x86_64-w64-mingw32
+
+```
+Usage: build.sh <--targets | <target>>
+```
+
+target "local" will build a `usagef` executable for your system
+
+## Install
+
+`usagef` is currently available as precompiled executables for
+
+- [macOS, x64](https://github.com/2justinmorgan/usagef/releases/latest/download/usagef_v0.1.0_darwin_x64.tar.xz)
+- [Linux, arm32](https://github.com/2justinmorgan/usagef/releases/latest/download/usagef_v0.1.0_linux_arm32.tar.xz) (statically linked)
+- [Linux, arm64](https://github.com/2justinmorgan/usagef/releases/latest/download/usagef_v0.1.0_linux_arm64.tar.xz) (statically linked)
+- [Linux, x64](https://github.com/2justinmorgan/usagef/releases/latest/download/usagef_v0.1.0_linux_x64.tar.xz) (statically linked)
+- [Windows, x64](https://github.com/2justinmorgan/usagef/releases/latest/download/usagef_v0.1.0_windows_x64.zip)
+
+[GitHub Releases](https://github.com/2justinmorgan/usagef/releases) contains specific `usagef` versions
+
 # Developers
 
 This remaining section outlines information for developers that want to contribute to the `usagef` project
