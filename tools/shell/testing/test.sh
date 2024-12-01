@@ -92,7 +92,7 @@ function test_with_docker() {
 
 	echo "testing with docker..."
 
-	container_id=$(docker run -itd "$DOCKER_IMG_NAME_TESTING")
+	container_id=$(docker run -itd --ulimit nofile=65535:65535 "$DOCKER_IMG_NAME_TESTING")
 	docker cp . "${container_id}":"$DOCKER_IMG_WORKDIR_PATH"
 	docker exec "${container_id}" \
 		bash -c "\"${DIR_TOOLS_SHELL_TESTING}\"/test.sh $tests_type || exit 1"
