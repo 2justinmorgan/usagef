@@ -4,6 +4,7 @@
 #define USAGEF_CONST_H
 
 extern const char ARG_VERSION[];
+extern const char ARG_HELP[];
 extern const char USAGEF_VERSION[];
 extern const char USAGEF_VERSION_FORMAT[];
 
