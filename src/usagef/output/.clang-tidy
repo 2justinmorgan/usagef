@@ -1,0 +1,2 @@
+Checks: '-altera-id-dependent-backward-branch,-altera-unroll-loops'
+InheritParentConfig: 'true'
