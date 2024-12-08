@@ -26,7 +26,7 @@ function run_tests() {
 	build_usagef_testing -D CMAKE_BUILD_TYPE=PROFILE
 	exit_code_build=$?
 	for path in $(list_unit_tests_paths); do
-		./"$path"
+		./"$path" --test-type coverage
 		exit_code_unit="$?"
 		[ "$exit_code_unit" -ne 0 ] && unit_failed=1
 	done

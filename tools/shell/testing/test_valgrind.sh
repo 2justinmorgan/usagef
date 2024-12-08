@@ -11,7 +11,7 @@ function run_tests() {
 			valgrind \
 				--error-exitcode=1 \
 				--leak-check=full \
-				./"$path" || exit 1
+				./"$path" --test-type valgrind || exit 1
 		done
 }
 

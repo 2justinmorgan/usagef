@@ -4,6 +4,9 @@
 #define TESTS_COMMON_H
 
 extern const char USAGEF_VERSION[];
+extern const char TEST_TYPE_COVERAGE[];
+extern const char TEST_TYPE_UNIT[];
+extern const char TEST_TYPE_VALGRIND[];
 
 void assert_base(int is_one, const char *file_path, const char *name_func,
                  int line_num);

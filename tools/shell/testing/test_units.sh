@@ -7,7 +7,7 @@ function run_tests() {
 	local path
 	build_usagef_testing || exit_err
 	for path in $(list_unit_tests_paths); do
-		./"$path" || exit_err_test_fail
+		./"$path" --test-type unit || exit_err_test_fail
 	done
 }
 

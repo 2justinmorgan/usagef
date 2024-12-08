@@ -1,6 +1,7 @@
 #include "../common.h"
 #include "usagef/output/output.h"
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -26,7 +27,7 @@ void reset_calloc() {
   calloc_arg2 = -1;
 }
 
-void test_get_desc_row_indices_base_1() {
+void test_get_desc_row_indices_base_1(char *test_type) {
   reset_calloc();
   int column2_width = 25;
   char *desc = "";
@@ -37,14 +38,17 @@ void test_get_desc_row_indices_base_1() {
 
   for (int i = 0; i < sizeof(expected) / sizeof(expected[0]); i++)
     assert(actual[i] == expected[i]);
-  assert(calloc_num_calls = 1);
-  assert(calloc_arg1 == 2);
-  assert(calloc_arg2 == sizeof(int));
+
+  if (strcmp(test_type, TEST_TYPE_VALGRIND) != 0) {
+    assert(calloc_num_calls == 1);
+    assert(calloc_arg1 == 2);
+    assert(calloc_arg2 == sizeof(int));
+  }
 
   free(actual);
 }
 
-void test_get_desc_row_indices_base_2() {
+void test_get_desc_row_indices_base_2(char *test_type) {
   reset_calloc();
   int column2_width = 25;
   char *desc = "this is my desc that must take some time to detail to you too";
@@ -55,14 +59,17 @@ void test_get_desc_row_indices_base_2() {
 
   for (int i = 0; i < sizeof(expected) / sizeof(expected[0]); i++)
     assert(actual[i] == expected[i]);
-  assert(calloc_num_calls = 1);
-  assert(calloc_arg1 == desc_len);
-  assert(calloc_arg2 == sizeof(int));
+
+  if (strcmp(test_type, TEST_TYPE_VALGRIND) != 0) {
+    assert(calloc_num_calls == 1);
+    assert(calloc_arg1 == desc_len);
+    assert(calloc_arg2 == sizeof(int));
+  }
 
   free(actual);
 }
 
-void test_get_desc_row_indices_multi_empty_line_end() {
+void test_get_desc_row_indices_multi_empty_line_end(char *test_type) {
   reset_calloc();
   int column2_width = 8;
   char *desc = "012345   901 34 6789";
@@ -73,17 +80,31 @@ void test_get_desc_row_indices_multi_empty_line_end() {
 
   for (int i = 0; i < sizeof(expected) / sizeof(expected[0]); i++)
     assert(actual[i] == expected[i]);
-  assert(calloc_num_calls = 1);
-  assert(calloc_arg1 == desc_len);
-  assert(calloc_arg2 == sizeof(int));
+
+  if (strcmp(test_type, TEST_TYPE_VALGRIND) != 0) {
+    assert(calloc_num_calls == 1);
+    assert(calloc_arg1 == desc_len);
+    assert(calloc_arg2 == sizeof(int));
+  }
 
   free(actual);
 }
 
+void check_args(int argc, char **argv) {
+  char args[255];
+  char f[] = "--test-type <%s|%s|%s>";
+  sprintf(args, f, TEST_TYPE_COVERAGE, TEST_TYPE_UNIT, TEST_TYPE_VALGRIND);
+  if (argc < 3) {
+    fprintf(stderr, "Usage: %s %s\n", argv[0], args);
+    exit(1);
+  }
+}
+
 int main(int argc, char **argv) {
+  check_args(argc, argv);
   begin_tests(argv);
-  test_get_desc_row_indices_base_1();
-  test_get_desc_row_indices_base_2();
-  test_get_desc_row_indices_multi_empty_line_end();
+  test_get_desc_row_indices_base_1(argv[2]);
+  test_get_desc_row_indices_base_2(argv[2]);
+  test_get_desc_row_indices_multi_empty_line_end(argv[2]);
   return 0;
 }

@@ -6,6 +6,9 @@
 #include <unistd.h>
 
 const char USAGEF_VERSION[] = "test-default";
+const char TEST_TYPE_COVERAGE[] = "coverage";
+const char TEST_TYPE_UNIT[] = "unit";
+const char TEST_TYPE_VALGRIND[] = "valgrind";
 
 void assert_base(int is_one, const char *file_path, const char *name_func,
                  int line_num) {
