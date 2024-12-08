@@ -33,5 +33,5 @@ endfunction()
 
 add_test_unit(run.c)
 add_test_unit(const.c)
-add_test_unit(argv/is_valid_argv.c)
+add_test_unit(input/is_valid_argv.c)
 add_test_unit(output/get_desc_row_indices.c)

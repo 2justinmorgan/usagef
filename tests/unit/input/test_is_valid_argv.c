@@ -1,6 +1,6 @@
 #include "../common.h"
-#include "usagef/argv/argv.h"
 #include "usagef/const.h"
+#include "usagef/input/input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

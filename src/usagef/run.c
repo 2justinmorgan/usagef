@@ -1,6 +1,6 @@
 #include "run.h"
-#include "argv/argv.h"
 #include "const.h"
+#include "input/input.h"
 #include "slibs/stdio.h"
 
 int run(int argc, char **argv) {

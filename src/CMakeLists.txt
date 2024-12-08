@@ -5,7 +5,7 @@ if(IS_STATIC_CHECKING EQUAL 1)
 endif()
 
 set(USAGEF_SOURCE_FILES
-    ${DIR_USAGEF}/argv/is_valid_argv.c ${DIR_USAGEF}/run.c
+    ${DIR_USAGEF}/input/is_valid_argv.c ${DIR_USAGEF}/run.c
     ${DIR_USAGEF}/output/get_desc_row_indices.c ${DIR_USAGEF}/const.c)
 
 if(IS_DEV_SETUP EQUAL 1)
