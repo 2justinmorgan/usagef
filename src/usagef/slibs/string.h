@@ -8,4 +8,6 @@
 #define strcmp strcmp
 #define strlen strlen
 
+char *str_cpy(char *source);
+
 #endif
