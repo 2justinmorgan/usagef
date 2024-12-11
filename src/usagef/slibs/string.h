@@ -6,5 +6,6 @@
 #include <string.h>
 
 #define strcmp strcmp
+#define strlen strlen
 
 #endif
